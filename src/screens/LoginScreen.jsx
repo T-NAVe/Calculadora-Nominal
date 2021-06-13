@@ -38,7 +38,7 @@ const LoginScreen = () => {
     }
 
     return (
-        <div className="container" style={{justifyContent:'space-around'}}>
+        <div className="container animate__animated animate__zoomIn" style={{justifyContent:'space-around'}}>
             <h3>Iniciar Sesión</h3>
             <hr />
             <div className="row container">

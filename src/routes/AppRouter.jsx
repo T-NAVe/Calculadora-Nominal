@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {firebase} from '../firebase/configFirebase'
 import {Switch, BrowserRouter as Router} from 'react-router-dom'
@@ -8,22 +8,24 @@ import PublicRouter from './PublicRouter'
 import { login } from '../actions/auth'
 import AuthRouter from './AuthRouter'
 import { loadData } from '../helpers/loadData'
+import { leerRegistros } from '../actions/nomina'
 
 
 const AppRouter = () => {
-
+    const [logged, setLogged] = useState(false)
     const dispatch = useDispatch()
 
-    const [logged, setLogged] = useState(false)
+    
 
     useEffect(() => {
         
-        firebase.auth().onAuthStateChanged((user)=>{
+        firebase.auth().onAuthStateChanged(async (user)=>{
             if(user){
                 dispatch(login(user.uid, user.displayName))
                 setLogged(true);
 
-                loadData(user.uid)
+               const nominaData = await loadData(user.uid)
+               dispatch(leerRegistros(nominaData)) 
             }else{
                 setLogged(false)
             }         
@@ -34,7 +36,6 @@ const AppRouter = () => {
         <Router>
             <Switch>
                 <PublicRouter path='/auth' logged={logged} component={AuthRouter}/>
-                {/* <Route path="/auth" component={AuthRouter}/> */}
                 <PrivateRouter exact path='/' logged={logged} component={AppScreen}/>
                 
             </Switch>

@@ -25,8 +25,14 @@ const FormAdd = () => {
     }
 
     const handleSave = ()=>{
-        const cantidadFinal = horas * precioHora
-        dispatch(crearRegistro(cantidadFinal))
+        if(horas&&precioHora){
+            const cantidadFinal = horas * precioHora
+            dispatch(crearRegistro(cantidadFinal))
+            setCantidadPago({
+                horas:undefined,
+                precioHora:undefined
+            })
+        }
     }
 
     return (
@@ -34,23 +40,31 @@ const FormAdd = () => {
              <button onClick={handleAdd} className="btn green waves-effect">{ !viewForm?"Agregar":"Cerrar"}</button>
              {
                  viewForm&&
-                <>
+                <div className="animate__animated animate__fadeIn">  
+                <div className="input-field col s12">
+                    <label htmlFor="precioHora">Pago por Hora </label>
                      <input 
+                     id="precioHora"
                      type="text" 
-                     placeholder="Ingresa el monto por hora" value={precioHora}
+                     value={precioHora}
                      onChange={handlePago}
                      name="precioHora"
                     />
+                </div>
+                <div className="input-field col s12">
+                    <label htmlFor="horas">Horas trabajadas </label>
                      <input 
+                     id="horas"
                      type="text" 
-                     placeholder="Ingresa cantidad horas" value={horas}
+                     value={horas}
                      onChange={handlePago}
                      name="horas"
                     />
+                </div>
                     <button 
                     onClick={handleSave}
                     className="btn purple waves-effect">Calcular y Guardar</button>
-                </>
+                </div>
              }
         </div>
     )

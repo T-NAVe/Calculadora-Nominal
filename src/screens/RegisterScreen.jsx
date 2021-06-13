@@ -45,7 +45,7 @@ const RegisterScreen = () => {
         <div className="container" style={{justifyContent:'space-around'}}>
             <h3>Registrarse</h3>
             <hr />
-            <div className="row container">
+            <div className="row container animate__animated animate__zoomIn">
                 <form onSubmit={handleRegister} className="col s12">
                     <div className="row">
                         <div className="input-field col s12">
@@ -55,8 +55,7 @@ const RegisterScreen = () => {
                             onChange={handleChange}
                             value={email}
                             id="icon_prefix1" className="materialize-textarea"
-                            type='email'
-                            
+                            type='email'                            
                             />
                             <label htmlFor="icon_prefix1">Email</label>
                         </div>
